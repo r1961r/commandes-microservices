@@ -1,0 +1,25 @@
+# --- CONFIG DE BASE DU MS COMMANDES ---
+server.port=8081
+spring.application.name=commandes-microservices
+
+spring.datasource.url=jdbc:h2:file:./data/commandes-db
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+
+# Actuator
+management.endpoints.web.exposure.include=health,env,refresh
+management.endpoint.health.show-details=always
+management.endpoint.health.show-components=always
+
+# 🔴 PROPRIÉTÉ PERSONNALISÉE DEMANDÉE PAR L’ÉNONCÉ
+mes-config-ms.commandes-last=10
