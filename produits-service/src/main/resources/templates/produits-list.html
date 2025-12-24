@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Produits</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <!-- Page title -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Gestion des Produits</h2>
+        <p class="text-muted">Liste et gestion des produits</p>
+    </div>
+
+    <!-- Action button -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/web/produits/nouveau" class="btn btn-primary">
+            Nouveau Produit
+        </a>
+    </div>
+
+    <!-- Card -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Description</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <!-- Aucun produit -->
+                <tr th:if="${produits.size() == 0}">
+                    <td colspan="5" class="text-center text-muted py-4">
+                        Aucun produit
+                    </td>
+                </tr>
+
+                <!-- Liste des produits -->
+                <tr th:each="p : ${produits}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.nom}" class="fw-semibold"></td>
+                    <td>
+                        <span th:text="${p.prix}"></span> MAD
+                    </td>
+                    <td th:text="${p.description}"></td>
+                    <td class="text-end">
+                        <a th:href="@{/web/produits/edit/{id}(id=${p.id})}"
+                           class="btn btn-sm btn-outline-warning me-1">
+                            Modifier
+                        </a>
+
+                        <form th:action="@{/web/produits/delete/{id}(id=${p.id})}"
+                              method="post" class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Supprimer ce produit ?')">
+                                Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

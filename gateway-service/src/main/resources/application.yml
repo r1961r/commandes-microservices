@@ -1,0 +1,32 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: api-gateway
+
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.autoconfigure.RefreshAutoConfiguration
+      - org.springframework.cloud.autoconfigure.LifecycleMvcEndpointAutoConfiguration
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: commandes-route
+          uri: lb://microservice-commandes
+          predicates:
+            - Path=/web/commandes/**
+        - id: produits-route
+          uri: lb://microservice-produits
+          predicates:
+            - Path=/produits/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

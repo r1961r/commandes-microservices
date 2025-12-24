@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogue produits</title>
+</head>
+<body>
+<h2>Produits disponibles</h2>
+
+<a th:href="@{/client/panier}">Voir le panier</a>
+<br/><br/>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Quantité</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="p : ${produits}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.nom}"></td>
+        <td th:text="${p.prix}"></td>
+        <td>
+            <form th:action="@{/client/panier/ajouter}" method="post">
+                <input type="hidden" name="produitId" th:value="${p.id}"/>
+                <input type="number" name="quantite" value="1" min="1"/>
+                <button type="submit">Ajouter au panier</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
